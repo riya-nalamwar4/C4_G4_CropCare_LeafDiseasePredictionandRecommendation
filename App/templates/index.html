@@ -1,0 +1,102 @@
+<html>
+{% extends 'base.html' %}
+{% block pagetitle %}
+{{ _("AI Engine") }}
+{% endblock pagetitle %}
+
+{% block body %}
+
+<style>
+  .language-switch {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 16px;
+  }
+  .language-switch a {
+      margin: 0 5px;
+      text-decoration: none;
+      font-weight: bold;
+  }
+</style>
+
+<!-- 🌐 LANGUAGE SWITCH -->
+<div class="language-switch">
+    <a href="{{ url_for('change_lang', lang='en') }}">English</a> |
+    <a href="{{ url_for('change_lang', lang='mr') }}">मराठी</a> |
+    <a href="{{ url_for('change_lang', lang='hi') }}">हिंदी</a>
+</div>
+
+<div>
+    <div class="container">
+
+        <!-- Title -->
+        <div class="row mb-5 text-center text-white">
+            <div class="col-lg-10 mx-auto">
+                <h1 class="display-4"
+                    style="padding-top: 2%;font-weight: 400;color: rgb(4, 54, 4);">
+                    <b>{{ _("Detect Disease") }}</b>
+                </h1>
+            </div>
+        </div>
+
+        <div class="row ">
+            <!-- Left Info Section -->
+            <div class="col mx-auto col-sm-12 col-md-6 col-lg-6">
+                <div class="p-5 bg-white shadow rounded-lg" style="height: 100%; margin-bottom: 5%;">
+
+                    <h5><b>{{ _("Why is it necessary to detect disease in plants?") }}</b></h5>
+
+                    <p>
+                        {{ _("Plant diseases affect growth and productivity. Early detection helps prevent major crop loss. Proper diagnosis ensures the correct treatment, saves time and money, and protects crops effectively.") }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Upload Section -->
+            <div class="col mx-auto col-sm-12 col-md-6 col-lg-6">
+                <div class="p-5 bg-white shadow rounded-lg" style="height: 100%;">
+
+                    <h6 class="text-center mb-4 text-muted">
+                        {{ _("Simply upload an image of the plant leaf and let AI detect the disease.") }}
+                    </h6>
+
+                    <form action="/submit" method="POST" enctype="multipart/form-data">
+                        <div class="custom-file overflow-hidden mb-4" style="padding-bottom: 20%;">
+                            <input type="file" id="actual-btn" hidden name="image" />
+                            <label for="actual-btn"
+                                   style="background-image: linear-gradient(300deg, #ff5c4d, #ff4d4d);
+                                          color: white;">
+                                  {{ _("Choose File") }}
+                            </label>
+
+                            <span id="file-chosen" style="color:black">
+                                {{ _("No file chosen") }}
+                            </span>
+                        </div>
+
+                        <center>
+                            <button type="submit" class="btn btn-outline-success">
+                                {{ _("Submit") }}
+                            </button>
+                        </center>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const actualBtn = document.getElementById('actual-btn');
+    const fileChosen = document.getElementById('file-chosen');
+
+    actualBtn.addEventListener('change', function () {
+        fileChosen.textContent = this.files[0].name;
+    });
+</script>
+
+{% endblock body %}
+</html>
